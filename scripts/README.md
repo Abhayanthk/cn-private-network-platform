@@ -23,7 +23,7 @@ Optional shortcuts. Every task they perform is documented step by step in [`docs
 | Command | Equivalent manual check | Documented in |
 | :-- | :-- | :-- |
 | `lan` | `ping` to all four Macs | [01 · Architecture](../docs/01-architecture.md) |
-| `dns` | `dig app.elu.test`, `dig api.elu.test`, an unknown name | [03 · DNS](../docs/03-dns.md) |
+| `dns` | The two project records, `app.elu.test` and `api.elu.test` (app and api are separate names), both → Mac 2; the unknown name `nothere.elu.test` → `NXDOMAIN` | [03 · DNS](../docs/03-dns.md) |
 | `backends` | direct `curl` to both backends + ETag comparison (run on Mac 2) | [04 · Backends](../docs/04-backends.md) |
 | `lb` | six requests through nginx, showing `x-backend` and `x-upstream-addr` | [05 · Load balancer](../docs/05-load-balancer.md) |
 | `tls` | `curl -v` filtered to TLS version, certificate, SAN and ALPN | [06 · TLS](../docs/06-tls.md) |
