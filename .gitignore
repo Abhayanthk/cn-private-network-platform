@@ -1,0 +1,11 @@
+# Private keys and CA working files never leave Mac 2
+*.key
+*.csr
+*.srl
+team-certs/
+
+# Local settings (real IPs live in ~/cn-team.env, not in the repo)
+cn-team.env
+
+# macOS
+.DS_Store
