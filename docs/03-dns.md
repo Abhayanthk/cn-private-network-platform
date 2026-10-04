@@ -41,6 +41,7 @@ host-record=api.elu.test,<Mac 2 IP>
 domain-needed
 bogus-priv
 log-queries
+log-facility=/tmp/dnsmasq.log
 ```
 
 <details>
@@ -57,6 +58,7 @@ log-queries
 | `domain-needed` | Never forward single-label names (e.g. `printer`) upstream |
 | `bogus-priv` | Never forward reverse lookups for private address ranges upstream |
 | `log-queries` | Log every query, providing evidence that clients use Mac 1 |
+| `log-facility=/tmp/dnsmasq.log` | Write the log to a plain file so the queries can be shown or captured |
 
 </details>
 
