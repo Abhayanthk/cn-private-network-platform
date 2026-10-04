@@ -36,7 +36,6 @@ flowchart LR
 | 2 | Wireshark → **Wi-Fi: en0** → capture filter `port 53 or port 8443 or port 3001 or port 3002` → start | Records only the project's traffic |
 | 3 | Run twice: `/usr/bin/curl -v --tlsv1.2 --tls-max 1.2 https://app.elu.test:8443/api/status` | TLS 1.2 keeps the Certificate message unencrypted |
 | 4 | Stop → save as `phase1-full-flow-tls12.pcapng` | Evidence file |
-| 5 | Repeat without the TLS options → `phase1-full-flow-tls13.pcapng` | Comparison: the Certificate is encrypted in TLS 1.3 |
 
 > [!NOTE]
 > Wireshark only recognises TLS automatically on port 443. Packets on 8443 were decoded with **Decode As… → TLS**, and packets on 3001 with **Decode As… → HTTP**.

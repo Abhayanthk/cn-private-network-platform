@@ -152,7 +152,7 @@ Commands, observed output and explanations: [docs/09-failure-demos.md](docs/09-f
 │   ├── 02-setup-flow.md              build order and coordination
 │   ├── 03-dns.md … 07-caching.md     one document per layer
 │   ├── 08-packet-capture.md          Wireshark analysis
-│   └── 09-failure-demos.md           F1–F5 (+ F3b)
+│   └── 09-failure-demos.md           F1–F5
 └── evidence/                         screenshots + .pcapng, one folder per task
 ```
 

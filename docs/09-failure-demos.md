@@ -9,7 +9,7 @@
 </div>
 
 > [!NOTE]
-> **Summary:** the system was broken in the five ways required by the brief, plus one additional whole-machine failure. Each fault was diagnosed layer by layer (DNS → TCP → TLS → HTTP) to identify which layer failed and to show that the other layers were unaffected.
+> **Summary:** the system was broken in the five ways required by the brief (section 6.3). Each fault was diagnosed layer by layer (DNS → TCP → TLS → HTTP) to identify which layer failed and to show that the other layers were unaffected.
 
 ## Diagnostic Method
 
@@ -42,7 +42,6 @@ flowchart LR
 | **F3** | One backend stopped | Mac 3 | Every request returns `200`, all from Backend B | none (masked by the edge) | Load balancer failover |
 | **F4** | Both backends stopped | Mac 3 + 4 | DNS, TCP and TLS succeed; nginx returns `502 Bad Gateway` | **upstream** of the edge | Where the edge ends and the backend begins |
 | **F5** | Wrong destination port | client | Host reachable; port refuses the connection | **Transport** | IP identifies the host, the port identifies the service |
-| F3b | Whole backend machine offline (additional) | Mac 4 | All requests `200` from A; one request delayed ~2 s | none (masked by the edge) | Machine-level failover |
 
 ---
 
@@ -180,24 +179,6 @@ nc: connectx to <Mac 2 IP> port 9443 (tcp) failed: Connection refused
 </details>
 
 **Explanation:** the IP address selects the host and the port selects the service. Mac 2 is reachable, but no process listens on 9443, so the SYN is answered with an RST.
-
-### F3b · Whole Backend Machine Offline (Additional)
-
-<details>
-<summary><b>Commands and output</b></summary>
-
-```bash
-# Fault: Mac 4 disconnects from Wi-Fi
-
-# Observation (any client): same loop as F3 → all responses from Backend A,
-# the first one delayed by up to 2 s
-
-# Restore: Mac 4 reconnects (same IP); Backend B rejoins within ~10 s
-```
-
-</details>
-
-**Explanation:** an offline machine sends no reply at all, not even an RST, so nginx waits for `proxy_connect_timeout 2s` before retrying on Backend A. A *refused* connection means the host is up but the port is closed; a *timeout* means nothing answered.
 
 ---
 
