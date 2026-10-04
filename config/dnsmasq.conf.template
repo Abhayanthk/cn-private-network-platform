@@ -1,0 +1,20 @@
+# Mac 1 · $(brew --prefix)/etc/dnsmasq.conf
+# Words in CAPITALS are placeholders, filled from ~/cn-team.env by scripts/render-configs.sh
+
+# Listen on localhost (Mac 1 itself) and the Wi-Fi IP (other Macs)
+listen-address=127.0.0.1,MAC1_IP
+bind-interfaces
+
+# Don't read /etc/resolv.conf; forward normal names (google.com) upstream
+no-resolv
+server=COLLEGE_DNS
+server=1.1.1.1
+
+# Our private zone: answer it ourselves, never forward it
+local=/TEAM.test/
+host-record=app.TEAM.test,MAC2_IP
+host-record=api.TEAM.test,MAC2_IP
+
+domain-needed
+bogus-priv
+log-queries

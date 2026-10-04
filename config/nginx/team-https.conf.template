@@ -1,0 +1,36 @@
+# Mac 2 · final: $(brew --prefix)/etc/nginx/servers/team-https.conf
+# TLS terminates here; backends receive plain HTTP. Port 8080 only redirects.
+
+upstream team_backends {
+    server MAC3_IP:3001 max_fails=1 fail_timeout=10s;   # Backend A (Mac 3)
+    server MAC4_IP:3002 max_fails=1 fail_timeout=10s;   # Backend B (Mac 4)
+}
+
+# Plain HTTP now only redirects to HTTPS
+server {
+    listen 8080 default_server;
+    server_name app.TEAM.test api.TEAM.test;
+    return 301 https://$host:8443$request_uri;
+}
+
+server {
+    listen 8443 ssl;
+    http2 on;
+    server_name app.TEAM.test api.TEAM.test;
+
+    ssl_certificate     NGINX_DIR/certs/app.crt;
+    ssl_certificate_key NGINX_DIR/certs/app.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    location / {
+        proxy_pass http://team_backends;
+        proxy_http_version 1.1;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_next_upstream error timeout http_502 http_503;
+        proxy_connect_timeout 2s;
+        add_header X-Upstream-Addr $upstream_addr always;
+    }
+}
