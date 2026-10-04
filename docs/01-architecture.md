@@ -50,8 +50,8 @@ All four Macs share one subnet mask and one gateway, which shows they are on the
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
 | Mac 1 | DNS + client | Apples-MacBook-Pro | 10.7.21.66 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 6a:da:87:fb:7c:3c |
 | Mac 2 | Edge / LB / TLS + client | abhayanths-MacBook-Pro | 10.7.11.181 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | d2:ab:99:21:7b:8a |
-| Mac 3 | Backend A + client + capture | Aryans-MacBook-Pro-9 | 10.7.15.50 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 36:9f:78:53:17:8d |
-| Mac 4 | Backend B + client | `TODO` | `TODO` | 255.255.224.0 (/19) | 10.7.0.1 | en0 | `TODO` |
+| Mac 3 | Backend A + client + capture | Aryans-MacBook-Pro-9 | 10.7.7.0 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 36:9f:78:53:17:8d |
+| Mac 4 | Backend B + client | `TODO` | 10.7.15.46 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | `TODO` |
 
 <details>
 <summary><b>How each column was collected</b></summary>
