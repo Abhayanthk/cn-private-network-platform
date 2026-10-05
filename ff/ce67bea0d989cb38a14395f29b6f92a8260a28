@@ -1,0 +1,19 @@
+README.md
+  s_4f83eb7bae8411::t_45027c21e2ab2d 28-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ffce67bea0d989cb38a14395f29b6f92a8260a28",
+  "prompts": {},
+  "sessions": {
+    "s_4f83eb7bae8411": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bfde82b9-86a8-4941-b7e6-95da5cad00d0",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Aryan Patel <aryanpatel6215@gmail.com>"
+    }
+  }
+}
