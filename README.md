@@ -20,10 +20,10 @@ macOS · dnsmasq · nginx · OpenSSL · Python 3 · Wireshark
 
 | Machine | Member | Role | Runs |
 | :-- | :-- | :-- | :-- |
-| **Mac 1** | `TODO: name` | Private DNS server + client | dnsmasq |
+| **Mac 1** | Srijan Patel | Private DNS server + client | dnsmasq |
 | **Mac 2** | Abhayanth K | Edge: reverse proxy, load balancer, TLS termination + client | nginx, team CA |
-| **Mac 3** | `TODO: name` | Backend A + client + packet capture | `server.py A 3001`, Wireshark |
-| **Mac 4** | `TODO: name` | Backend B + client | `server.py B 3002` |
+| **Mac 3** | Aryan Patel | Backend A + client + packet capture | `server.py A 3001`, Wireshark |
+| **Mac 4** | Ashrith | Backend B + client | `server.py B 3002` |
 
 ## Architecture
 
