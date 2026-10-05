@@ -1,0 +1,19 @@
+README.md
+  s_f467bd43eb6910::t_cd0bc9f16f08b8 23,25-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8e990f620ed38d3432120130ab5803f6c7446648",
+  "prompts": {},
+  "sessions": {
+    "s_f467bd43eb6910": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fb04e93c-d82f-4ce8-ac84-5b72c635b236",
+        "model": "unknown"
+      },
+      "human_author": "Aryan Patel <aryanpatel6215@gmail.com>"
+    }
+  }
+}
