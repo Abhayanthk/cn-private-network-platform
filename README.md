@@ -25,6 +25,8 @@ macOS · dnsmasq · nginx · OpenSSL · Python 3 · Wireshark
 | **Mac 3** | Aryan Patel | Backend A + client + packet capture | `server.py A 3001`, Wireshark |
 | **Mac 4** | Ashrith | Backend B + client | `server.py B 3002` |
 
+All four machines are connected over a single college Wi-Fi LAN with static private IPs. Every team member also acts as a client, testing the full request path end-to-end from their own machine.
+
 ## Architecture
 
 ```mermaid
