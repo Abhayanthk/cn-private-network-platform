@@ -1,0 +1,18 @@
+~/cn-private-network-platform % dig app.elu.test +short
+10.7.7.100
+~/cn-private-network-platform % nc -vz -G 3 app.elu.test 8443
+Connection to app.elu.test port 8443 [tcp/pcsync-https] succeeded!
+~/cn-private-network-platform % curl -sv -o /dev/null https://app.elu.test:8443/ 2>&1 | grep 'verify ok'
+*  SSL certificate verify ok.
+~/cn-private-network-platform % for i in 1 2 3 4; do curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -iE 'x-backend|x-upstream'; done
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+~/cn-private-network-platform % nc -vz -G 3 10.7.15.46 3002
+nc: connectx to 10.7.15.46 port 3002 (tcp) failed: Connection refused
+~/cn-private-network-platform %
