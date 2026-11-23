@@ -1,0 +1,6 @@
+# E demo (Mac 2 = client Y): app moved to Mac 3. 2026-11-23 20:01:15 IST
+$ dig +short app.elu.test
+10.7.1.186
+$ curl https://app.elu.test:8443/api/status
+x-backend: B x-edge: aryans-macbook-pro-9.local
+(this Mac's cache expired after 0 s; no sudo flush used)

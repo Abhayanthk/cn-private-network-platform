@@ -1,0 +1,5 @@
+# E setup (Mac 2): standby edge on Mac 3 answers, tested before DNS moves. 2026-11-23 19:56:56 IST
+$ curl --resolve app.elu.test:8443:10.7.1.186 https://app.elu.test:8443/api/status
+x-backend: B x-edge: aryans-macbook-pro-9.local
+$ curl https://app.elu.test:8443/api/status   (DNS still points at Mac 2)
+x-backend: B x-edge: mac2-edge

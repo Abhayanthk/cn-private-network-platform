@@ -1,0 +1,7 @@
+# C (Mac 2): allowed client, firewall on (Mac 3 + Mac 4). 2026-11-23 19:48:17 IST
+$ curl http://10.7.1.186:3001/api/status
+HTTP/1.0 200 OK
+X-Backend: A
+$ curl http://10.7.15.46:3002/api/status
+HTTP/1.0 200 OK
+X-Backend: B
