@@ -26,7 +26,7 @@ sed -e "s/MAC1_IP/$MAC1_IP/g" -e "s/MAC2_IP/$MAC2_IP/g" \
     config/dnsmasq.conf.template > "$(brew --prefix)/etc/dnsmasq.conf"
 ```
 
-`config/live/` holds copies of the files that were actually running during the demonstrations: `dnsmasq.conf` (Phase 1) and `dnsmasq-phase2.conf` (Phase 2, adds `local-ttl=30`) from Mac 1, and `team-https.conf` from Mac 2 (Phase 2 version: Mac 3's new IP 10.7.1.186 and the `X-Edge "mac2-edge"` header).
+`config/live/` holds copies of the files that were actually running during the demonstrations: `dnsmasq.conf` (Phase 1) and `dnsmasq-phase2.conf` (Phase 2, adds `local-ttl=30`) from Mac 1, and `team-https.conf` from Mac 2 (Phase 2 version: Mac 3's new IP 10.7.1.186 and the `X-Edge "mac2-edge"` header), and `pf-mac3.rules` from Mac 3 (Phase 2 Extension C: only Mac 2 may reach port 3001; loaded into the pf anchor `com.apple/cn`, so `/etc/pf.conf` is never edited). The standby edge on Mac 3 (Extension E) ran Mac 2's `team-https.conf` unchanged except for `add_header X-Edge $hostname always;`, so it reported its own name.
 
 > [!NOTE]
 > Homebrew's main `nginx.conf` is never edited. It already contains `include servers/*;`, so placing our file in `servers/` is sufficient. Only one of `team-http.conf` and `team-https.conf` may be present at a time; otherwise nginx reports `duplicate upstream "team_backends"`.
