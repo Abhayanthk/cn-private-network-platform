@@ -59,6 +59,7 @@ The configuration files that actually ran are kept in [`config/live/`](../config
 | [`phase2/D-failover/`](phase2/D-failover/) | `mac3-backend-a-stopped` | Backend A stopped on Mac 3: 6 × B, first request retried A → B; A back after 10 s | D |
 | [`phase2/E-cutover/`](phase2/E-cutover/) | `mac3-standby-ready` | Standby nginx on Mac 3: `nginx -t`, listening on 8443, `x-edge` = Mac 3, TLS verify ok | E |
 | | `mac3-cutover-live` | Both DNS servers → Mac 3; requests by name served by Mac 3's edge; access log shows client Y (Mac 2) | E |
+| [`phase2/F-troubleshooting/`](phase2/F-troubleshooting/) | `mac1-practice-fault` | Practice fault: ladder stops at TCP, `Connection refused`, nginx not running on Mac 2 | F |
 
 Each `mac2-*` and `mac3-*` file has a `.txt` (raw command output) and a `.png` (the same output as an image); the two `mac3-*.jpg` files are direct screenshots.
 
