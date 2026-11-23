@@ -13,6 +13,9 @@ Optional shortcuts. Every task they perform is documented step by step in [`docs
 | [`demo.sh`](demo.sh) | any Mac | Runs the verification commands from the docs (`dig`, `curl`, `nc`) and prints each command before its output | No, read-only |
 | [`render-configs.sh`](render-configs.sh) | any Mac | Replaces the placeholders in `config/*.template` with the real IPs and writes the results to `config/rendered/` | Writes `config/rendered/` only |
 | [`make-certs.sh`](make-certs.sh) | Mac 2 | Creates the team CA and the server certificate in `~/team-certs` and copies the server certificate and key into nginx's `certs/` folder | Yes; refuses to run if a CA already exists |
+| [`phase2-mac3.sh`](phase2-mac3.sh) | Mac 3 | Phase 2 steps as one command each: `check`, `dns-both`, `dns-test` (A), `fw-on` / `fw-status` / `fw-off` (C), `standby-setup` / `standby-test` / `standby-stop` (E), `stop` | Yes: DNS servers, pf anchor `com.apple/cn` (released with its token, `pf.conf` never edited), nginx |
+| [`phase2-evidence-e.sh`](phase2-evidence-e.sh) | Mac 3 | During the Extension E cutover: both DNS answers, TTL, requests by name, old edge, standby access log | No, read-only |
+| [`phase2-mac3-cleanup.sh`](phase2-mac3-cleanup.sh) | Mac 3 | After the record is back on Mac 2: waits one TTL, stops the standby nginx, deletes `app.key`, runs the final check | Yes: stops nginx, deletes the key |
 
 ## demo.sh
 

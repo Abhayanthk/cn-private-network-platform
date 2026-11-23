@@ -1,0 +1,23 @@
+~/cn-private-network-platform % kill $(lsof -tiTCP:3001 -sTCP:LISTEN); sleep 1; lsof -nP -iTCP:3001 -sTCP:LISTEN || echo "Backend A stopped: nothing on port 3001"
+Backend A stopped: nothing on port 3001
+~/cn-private-network-platform % for i in 1 2 3 4 5 6; do /usr/bin/curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -iE "x-backend|x-upstream"; done
+x-backend: B
+x-upstream-addr: 10.7.1.186:3001, 10.7.15.46:3002
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+~/cn-private-network-platform % sleep 10; lsof -nP -iTCP:3001 -sTCP:LISTEN; for i in 1 2 3 4; do /usr/bin/curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -i "x-backend"; done
+COMMAND  PID       USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Python  9728 aryanpatel    3u  IPv4 0x8dca6930c320929f      0t0  TCP *:3001 (LISTEN)
+x-backend: B
+x-backend: B
+x-backend: A
+x-backend: B
+~/cn-private-network-platform %
