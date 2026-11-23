@@ -1,0 +1,43 @@
+evidence/phase2/A-backup-dns/mac3-dig-while-mac1-down.txt
+  s_040eea25d4de10::t_2fd6e0eb00b123 2-3,9,12
+  s_040eea25d4de10::t_5048a358e41d8a 5,10,13
+  s_040eea25d4de10::t_64486a44ce5e47 1,4,6-8,11,14
+scripts/phase2-evidence-e.sh
+  s_040eea25d4de10::t_5b217ddeed610b 1-21
+scripts/phase2-mac3-cleanup.sh
+  s_040eea25d4de10::t_59641069422234 1-28
+evidence/phase2/D-failover/mac3-backend-a-stopped.txt
+  s_040eea25d4de10::t_5048a358e41d8a 1-22
+  s_040eea25d4de10::t_64486a44ce5e47 23
+scripts/phase2-mac3.sh
+  s_040eea25d4de10::t_877efcea4f6dd7 1-201
+evidence/README.md
+  s_040eea25d4de10::t_9c88aa0487dddb 55-61,63
+scripts/README.md
+  s_040eea25d4de10::t_aaf0ab6412d4fb 16-18
+docs/10-phase2-report.md
+  s_040eea25d4de10::t_077f1d44d0b2df 43-46
+evidence/phase2/C-firewall/mac3-pf-on-off.txt
+  s_040eea25d4de10::t_64486a44ce5e47 1,5,9-16,18-20,22-25,27-31
+  s_040eea25d4de10::t_2fd6e0eb00b123 2-4,6-8,17,21,26
+evidence/phase2/E-cutover/mac3-cutover-live.txt
+  s_040eea25d4de10::t_f60cb27ee66b0a 1-32
+evidence/phase2/E-cutover/mac3-standby-ready.txt
+  s_040eea25d4de10::t_0bcc3a9d8f6a8f 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c809145a8a90e7d253c57e39adaf839ddaee4af2",
+  "prompts": {},
+  "sessions": {
+    "s_040eea25d4de10": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87fed256-cb69-4441-a41c-fb7f37a3c473",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Aryan Patel <aryanpatel6215@gmail.com>"
+    }
+  }
+}
