@@ -36,11 +36,11 @@ The configuration files that actually ran are kept in [`config/live/`](../config
 
 | Folder | File | Content | Extension |
 | :-- | :-- | :-- | :-: |
-| [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac1-primary-off.txt` | dnsmasq stopped on Mac 1; primary times out, Mac 4 answers | A |
-| [`phase2/B-ttl/`](phase2/B-ttl/) | `mac1-ttl-30.txt` | TTL 30 on Mac 1 and Mac 4 | B |
-| | `mac1-record-changed.txt` | `app` changed to Mac 3 on both DNS servers | B |
-| [`phase2/C-firewall/`](phase2/C-firewall/) | `mac1-blocked-client.txt` | Direct requests to 3001/3002 time out; through the edge `200` | C |
-| [`phase2/E-cutover/`](phase2/E-cutover/) | `mac1-cutover.txt` | `app` moved to the standby edge; `x-edge` shows Mac 3 | E |
+| [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac1-primary-off.png` / `.txt` | dnsmasq stopped on Mac 1; primary times out, Mac 4 answers | A |
+| [`phase2/B-ttl/`](phase2/B-ttl/) | `mac1-ttl-30.png` / `.txt` | TTL 30 on Mac 1 and Mac 4 | B |
+| | `mac1-record-changed.png` / `.txt` | `app` changed to Mac 3 on both DNS servers | B |
+| [`phase2/C-firewall/`](phase2/C-firewall/) | `mac1-blocked-client.png` / `.txt` | Direct requests to 3001/3002 time out; through the edge `200` | C |
+| [`phase2/E-cutover/`](phase2/E-cutover/) | `mac1-cutover.png` / `.txt` | `app` moved to the standby edge; `x-edge` shows Mac 3 | E |
 | [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac2-two-dns-servers` | Mac 2 lists Mac 1 and Mac 4 as resolvers; Mac 4 answers | A |
 | | `mac2-primary-down` | Mac 1 stopped: `dig` answered by Mac 4, `curl` still `200` | A |
 | [`phase2/B-ttl/`](phase2/B-ttl/) | `mac2-ttl-and-cache` | TTL 30 on both servers, macOS cache filled | B |
