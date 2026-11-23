@@ -1,0 +1,7 @@
+# Extension B - TTL 30, Mac 1, 2026-11-23 19:41:24
+$ grep local-ttl dnsmasq.conf
+local-ttl=30
+$ dig app.elu.test @127.0.0.1 | grep ^app   (2nd column = TTL)
+app.elu.test.		30	IN	A	10.7.7.100
+$ dig app.elu.test @10.7.15.46 | grep ^app   (Mac 4)
+app.elu.test.		30	IN	A	10.7.7.100
