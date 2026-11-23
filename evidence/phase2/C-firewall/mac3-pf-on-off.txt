@@ -1,0 +1,31 @@
+~/cn-private-network-platform % cat ~/cn-pf.rules
+pass in quick on lo0 all
+pass in quick proto tcp from 10.7.7.100 to any port 3001
+block drop in quick proto tcp from any to any port 3001
+~/cn-private-network-platform % sudo pfctl -a com.apple/cn -s rules
+pass in quick on lo0 all flags S/SA keep state
+pass in quick inet proto tcp from 10.7.7.100 to any port = 3001 flags S/SA keep state
+block drop in quick proto tcp from any to any port = 3001
+~/cn-private-network-platform % for i in 1 2 3; do curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -iE 'x-backend|x-upstream'; done
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+x-backend: B
+x-upstream-addr: 10.7.15.46:3002
+x-backend: A
+x-upstream-addr: 10.7.1.186:3001
+~/cn-private-network-platform % ./scripts/phase2-mac3.sh fw-off
+
+━━ Step 2 (C): firewall off ━━
+$ sudo pfctl -a com.apple/cn -F all 2>&1 | grep -v ALTQ || true
+Password:
+rules cleared
+nat cleared
+dummynet cleared
+0 tables deleted.
+$ sudo pfctl -X 3917487901968115779 2>&1 | grep -v ALTQ || true
+pf disabled
+$ sudo pfctl -a com.apple/cn -s rules 2>/dev/null
+(nothing above = our rules are gone)
+  ✔ /etc/pf.conf unchanged (matches /Users/aryanpatel/pf.conf.rollback)
+Post "firewall off".
+~/cn-private-network-platform %
