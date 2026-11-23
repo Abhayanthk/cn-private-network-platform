@@ -1,0 +1,25 @@
+~/cn-private-network-platform % nginx -t
+nginx: the configuration file /opt/homebrew/etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test is successful
+~/cn-private-network-platform % lsof -nP -iTCP:8443 -sTCP:LISTEN | awk '{print $1, $9}'
+COMMAND NAME
+nginx *:8443
+nginx *:8443
+~/cn-private-network-platform % for i in 1 2 3 4; do curl -s -D - -o /dev/null --resolve app.elu.test:8443:10.7.1.186 https://app.elu.test:8443/api/status | grep -iE 'x-backend|x-edge'; done
+x-backend: B
+x-edge: aryans-macbook-pro-9.local
+x-backend: A
+x-edge: aryans-macbook-pro-9.local
+x-backend: B
+x-edge: aryans-macbook-pro-9.local
+x-backend: A
+x-edge: aryans-macbook-pro-9.local
+~/cn-private-network-platform % curl -s -D - -o /dev/null --resolve app.elu.test:8443:10.7.7.100 https://app.elu.test:8443/api/status | grep -iE 'x-backend|x-edge'
+x-backend: A
+x-edge: mac2-edge
+~/cn-private-network-platform % curl -sv -o /dev/null --resolve app.elu.test:8443:10.7.1.186 https://app.elu.test:8443/ 2>&1 | grep -E 'SSL connection|subject:|issuer:|verify ok'
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+*  subject: CN=app.elu.test
+*  issuer: CN=elu Local Root CA
+*  SSL certificate verify ok.
+~/cn-private-network-platform %
