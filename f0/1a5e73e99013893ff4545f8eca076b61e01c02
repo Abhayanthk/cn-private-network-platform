@@ -1,0 +1,21 @@
+config/live/pf-mac3.rules
+  s_040eea25d4de10::t_52ed1b1d6c4c56 1-7
+config/README.md
+  s_040eea25d4de10::t_28aaf4d6cf76c6 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f01a5e73e99013893ff4545f8eca076b61e01c02",
+  "prompts": {},
+  "sessions": {
+    "s_040eea25d4de10": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87fed256-cb69-4441-a41c-fb7f37a3c473",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Aryan Patel <aryanpatel6215@gmail.com>"
+    }
+  }
+}
