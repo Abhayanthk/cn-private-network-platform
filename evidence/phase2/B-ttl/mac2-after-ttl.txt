@@ -1,0 +1,6 @@
+# B demo (Mac 2): after the TTL. 2026-11-23 19:44:38 IST
+cache switched to the new IP after 17 s
+$ dscacheutil -q host -a name app.elu.test
+name: app.elu.test
+ip_address: 10.7.1.186
+

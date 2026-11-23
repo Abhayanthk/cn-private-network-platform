@@ -1,0 +1,8 @@
+# D after (Mac 2): Backend A back, waited 10 s (fail_timeout). 2026-11-23 19:52:17 IST
+$ for i in 1..6; do curl https://app.$TEAM.test:8443/api/status | grep x-backend; done
+HTTP/2 200  x-backend: A
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: A
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: A
+HTTP/2 200  x-backend: B
