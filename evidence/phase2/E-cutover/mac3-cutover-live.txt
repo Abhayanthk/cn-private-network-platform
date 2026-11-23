@@ -1,0 +1,32 @@
+~/cn-private-network-platform % bash scripts/phase2-evidence-e.sh
+== Extension E: DNS cutover to standby edge (Mac 3)   2026-11-23 20:06:12 ==
+
+$ dig @Mac1 / @Mac4 app.elu.test +short
+  Mac 1 (10.7.16.231): 10.7.1.186
+  Mac 4 (10.7.15.46): 10.7.1.186   (Mac 3 = 10.7.1.186)
+
+$ dig app.elu.test | grep -E '^app'      (TTL = 2nd column)
+app.elu.test.           30      IN      A       10.7.1.186
+
+$ curl https://app.elu.test:8443/api/status   (by name, 4x)
+HTTP/2 200  x-backend: B x-edge: aryans-macbook-pro-9.local
+HTTP/2 200  x-backend: A x-edge: aryans-macbook-pro-9.local
+HTTP/2 200  x-backend: B x-edge: aryans-macbook-pro-9.local
+HTTP/2 200  x-backend: A x-edge: aryans-macbook-pro-9.local
+
+$ curl --resolve ...:10.7.7.100   (old edge, still up for cached clients)
+HTTP/2 200  x-backend: A x-edge: mac2-edge
+
+$ tail -4 nginx access.log on Mac 3   (who used the standby edge)
+10.7.1.186 - - [23/Nov/2026:20:06:13 +0530] "GET /api/status HTTP/2.0" 200 76 "-
+10.7.1.186 - - [23/Nov/2026:20:06:13 +0530] "GET /api/status HTTP/2.0" 200 76 "-
+10.7.1.186 - - [23/Nov/2026:20:06:13 +0530] "GET /api/status HTTP/2.0" 200 76 "-
+10.7.1.186 - - [23/Nov/2026:20:06:13 +0530] "GET /api/status HTTP/2.0" 200 76 "-
+~/cn-private-network-platform % grep '^10.7.7.100' /opt/homebrew/var/log/nginx/access.log | grep '20:04:30'
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+10.7.7.100 - - [23/Nov/2026:20:04:30 +0530] "GET /api/status HTTP/2.0" 200 76 "-" "curl/8.7.1"
+~/cn-private-network-platform %

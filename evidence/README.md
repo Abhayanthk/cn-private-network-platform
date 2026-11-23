@@ -52,8 +52,15 @@ The configuration files that actually ran are kept in [`config/live/`](../config
 | | `mac2-a-back` | A restarted, after 10 s: A, B again | D |
 | [`phase2/E-cutover/`](phase2/E-cutover/) | `mac2-standby-ready` | Standby tested with `curl --resolve` before DNS moved | E |
 | | `mac2-client-y` | Client Y after the change: new IP, `x-edge` = Mac 3 | E |
+| [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac3-dig-server-mac4.jpg` | Mac 3 with Mac 1 stopped: `SERVER: 10.7.15.46` (Mac 4) | A |
+| | `mac3-dig-while-mac1-down` | Mac 3 lists both resolvers; Mac 1 times out, Mac 4 answers, `curl` still `200` | A |
+| [`phase2/C-firewall/`](phase2/C-firewall/) | `mac3-firewall-on-rules.jpg` | pf rules loaded on Mac 3: only Mac 2 may reach 3001 | C |
+| | `mac3-pf-on-off` | Rules active, edge still reaches A; then rules flushed, pf back off, `pf.conf` unchanged | C |
+| [`phase2/D-failover/`](phase2/D-failover/) | `mac3-backend-a-stopped` | Backend A stopped on Mac 3: 6 × B, first request retried A → B; A back after 10 s | D |
+| [`phase2/E-cutover/`](phase2/E-cutover/) | `mac3-standby-ready` | Standby nginx on Mac 3: `nginx -t`, listening on 8443, `x-edge` = Mac 3, TLS verify ok | E |
+| | `mac3-cutover-live` | Both DNS servers → Mac 3; requests by name served by Mac 3's edge; access log shows client Y (Mac 2) | E |
 
-Each `mac2-*` file has a `.txt` (raw command output) and a `.png` (the same output as an image).
+Each `mac2-*` and `mac3-*` file has a `.txt` (raw command output) and a `.png` (the same output as an image); the two `mac3-*.jpg` files are direct screenshots.
 
 Report: [docs/10-phase2-report.md](../docs/10-phase2-report.md).
 

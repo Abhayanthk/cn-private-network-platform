@@ -1,0 +1,14 @@
+~/cn-private-network-platform % networksetup -getdnsservers Wi-Fi
+10.7.16.231
+10.7.15.46
+~/cn-private-network-platform % dig @10.7.16.231 app.elu.test +short +time=2 +tries=1
+;; connection timed out; no servers could be reached
+~/cn-private-network-platform % sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+Password:
+~/cn-private-network-platform % dig app.elu.test | grep -E 'SERVER|^app'
+app.elu.test.           30      IN      A       10.7.7.100
+;; SERVER: 10.7.15.46#53(10.7.15.46)
+~/cn-private-network-platform % curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -iE '^HTTP|x-backend'
+HTTP/2 200
+x-backend: A
+~/cn-private-network-platform %
