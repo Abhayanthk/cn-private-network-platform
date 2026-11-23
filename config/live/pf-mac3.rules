@@ -1,0 +1,7 @@
+# Mac 3 (Backend A) - Phase 2 Extension C: only the edge (Mac 2, 10.7.7.100) may reach port 3001.
+# Loaded into the pf sub-anchor com.apple/cn, which macOS's /etc/pf.conf already reads; pf.conf is never edited.
+#   on:   sudo pfctl -a com.apple/cn -f pf-mac3.rules && sudo pfctl -E      (note the Token it prints)
+#   off:  sudo pfctl -a com.apple/cn -F all && sudo pfctl -X <Token>         (pf back to its previous state)
+pass in quick on lo0 all
+pass in quick proto tcp from 10.7.7.100 to any port 3001
+block drop in quick proto tcp from any to any port 3001
