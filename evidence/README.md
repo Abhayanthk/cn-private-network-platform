@@ -32,5 +32,17 @@
 
 The configuration files that actually ran are kept in [`config/live/`](../config/): `dnsmasq.conf` from Mac 1 and `team-https.conf` from Mac 2.
 
+## Phase 2 Evidence
+
+| Folder | File | Content | Extension |
+| :-- | :-- | :-- | :-: |
+| [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac1-primary-off.txt` | dnsmasq stopped on Mac 1; primary times out, Mac 4 answers | A |
+| [`phase2/B-ttl/`](phase2/B-ttl/) | `mac1-ttl-30.txt` | TTL 30 on Mac 1 and Mac 4 | B |
+| | `mac1-record-changed.txt` | `app` changed to Mac 3 on both DNS servers | B |
+| [`phase2/C-firewall/`](phase2/C-firewall/) | `mac1-blocked-client.txt` | Direct requests to 3001/3002 time out; through the edge `200` | C |
+| [`phase2/E-cutover/`](phase2/E-cutover/) | `mac1-cutover.txt` | `app` moved to the standby edge; `x-edge` shows Mac 3 | E |
+
+Report: [docs/10-phase2-report.md](../docs/10-phase2-report.md).
+
 > [!CAUTION]
 > Private keys (`team-CA.key`, `app.key`) are never stored here. `.gitignore` excludes `*.key`.

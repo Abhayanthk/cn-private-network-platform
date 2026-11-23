@@ -50,7 +50,7 @@ All four Macs share one subnet mask and one gateway, which shows they are on the
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
 | Mac 1 | DNS + client | Apples-MacBook-Pro | 10.7.16.231 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 6a:da:87:fb:7c:3c |
 | Mac 2 | Edge / LB / TLS + client | abhayanths-MacBook-Pro | 10.7.7.100 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | d2:ab:99:21:7b:8a |
-| Mac 3 | Backend A + client + capture | Aryans-MacBook-Pro-9 | 10.7.7.0 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 36:9f:78:53:17:8d |
+| Mac 3 | Backend A + client + capture | Aryans-MacBook-Pro-9 | 10.7.1.186 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | 36:9f:78:53:17:8d |
 | Mac 4 | Backend B + client | `TODO` | 10.7.15.46 | 255.255.224.0 (/19) | 10.7.0.1 | en0 | `TODO` |
 
 <details>
@@ -145,6 +145,44 @@ sequenceDiagram
 | Backend ports reachable directly from the LAN | nginx can be bypassed over plain HTTP | Ext C: restrict 3001/3002 to Mac 2 only |
 | Single DNS server | A DNS outage stops name resolution for every client | Ext A: backup resolver on a second Mac |
 | Single nginx edge | Single point of failure for the whole service | Ext E: standby edge + DNS cutover |
+
+## Phase 2 Additions
+
+| Addition | Machine | Address | What it does |
+| :-- | :-- | :-- | :-- |
+| Backup DNS (Ext A) | Mac 4 | 10.7.15.46:53/UDP | Same records as Mac 1. Clients list Mac 1 first, Mac 4 second |
+| DNS TTL 30 s (Ext B) | Mac 1, Mac 4 | – | `local-ttl=30`: clients cache `app.elu.test` for 30 s |
+| Backend firewall (Ext C) | Mac 3, Mac 4 | ports 3001 / 3002 | pf rules let only Mac 2 (10.7.7.100) reach the backends |
+| Standby edge (Ext E) | Mac 3 | 10.7.1.186:8443 | Second nginx with the same configuration, reached by changing the `app` record |
+
+```mermaid
+flowchart LR
+    client(["Client"])
+    subgraph LAN["Same private LAN"]
+        direction LR
+        dns1["Mac 1 · DNS primary<br/>10.7.16.231"]
+        dns2["Mac 4 · DNS backup<br/>10.7.15.46"]
+        edge["Mac 2 · Edge nginx<br/>10.7.7.100:8443"]
+        standby["Mac 3 · Standby edge<br/>10.7.1.186:8443"]
+        a["Mac 3 · Backend A :3001"]
+        b["Mac 4 · Backend B :3002"]
+    end
+    client -->|"DNS: 1st try"| dns1
+    client -.->|"DNS: if Mac 1 is down"| dns2
+    client ==>|"HTTPS"| edge
+    client -.->|"after DNS cutover"| standby
+    edge -->|"only Mac 2 allowed"| a
+    edge -->|"only Mac 2 allowed"| b
+```
+
+| Request step (Phase 2) | Protocol | Layer |
+| :-- | :-- | :-- |
+| DNS query to Mac 1, then to Mac 4 if Mac 1 does not answer | DNS / UDP 53 | Application / Transport |
+| Cached answer reused for the TTL (30 s) | DNS cache on the client | Application |
+| HTTPS to the edge named by the record (Mac 2, or Mac 3 after cutover) | TCP 8443 + TLS | Transport / Session / Application |
+| Edge to a backend, allowed only from Mac 2 | HTTP / TCP 3001, 3002 | Application / Transport |
+
+Phase 2 results: [10 · Phase 2 report](10-phase2-report.md).
 
 ---
 

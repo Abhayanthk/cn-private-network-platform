@@ -1,0 +1,11 @@
+# Extension A - Mac 1 view, 2026-11-23 19:39:05
+$ pgrep -fl dnsmasq   (Mac 1)
+(no dnsmasq process: primary is OFF)
+
+$ dig +time=2 +tries=1 app.elu.test @10.7.16.231   (primary)
+;; connection timed out; no servers could be reached
+
+$ dig app.elu.test @10.7.15.46   (backup, Mac 4)
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 724
+app.elu.test.		30	IN	A	10.7.7.100
+;; SERVER: 10.7.15.46#53(10.7.15.46)
