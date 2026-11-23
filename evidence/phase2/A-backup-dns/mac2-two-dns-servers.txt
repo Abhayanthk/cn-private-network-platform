@@ -1,0 +1,9 @@
+# A setup (Mac 2) 2026-11-23 19:35:13 IST
+$ networksetup -getdnsservers Wi-Fi
+10.7.16.231
+10.7.15.46
+$ scutil --dns | grep nameserver | head -2
+  nameserver[0] : 10.7.16.231
+  nameserver[1] : 10.7.15.46
+$ dig @10.7.15.46 app.elu.test +short
+10.7.7.100

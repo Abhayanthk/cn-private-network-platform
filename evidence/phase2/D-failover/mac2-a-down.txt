@@ -1,0 +1,12 @@
+# D during (Mac 2): Backend A stopped on Mac 3. 2026-11-23 19:51:59 IST
+$ for i in 1..6; do curl https://app.$TEAM.test:8443/api/status | grep x-backend; done
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: B
+HTTP/2 200  x-backend: B
+$ tail -3 error.log
+2026/11/23 19:51:18 [error] 23359#0: *79 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 10.7.1.186, server: app.elu.test, request: "GET /api/sta
+2026/11/23 19:51:46 [error] 23359#0: *94 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 10.7.7.100, server: app.elu.test, request: "GET /api/sta
+2026/11/23 19:52:01 [error] 23359#0: *107 kevent() reported that connect() failed (61: Connection refused) while connecting to upstream, client: 10.7.7.100, server: app.elu.test, request: "GET /api/st
