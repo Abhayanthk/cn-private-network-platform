@@ -1,0 +1,11 @@
+# B setup (Mac 2): TTL 30 on both servers, cache filled. 2026-11-23 19:42:39 IST
+$ dig @10.7.16.231 app.elu.test
+app.elu.test.		30	IN	A	10.7.7.100
+;; SERVER: 10.7.16.231#53(10.7.16.231)
+$ dig @10.7.15.46 app.elu.test
+app.elu.test.		30	IN	A	10.7.7.100
+;; SERVER: 10.7.15.46#53(10.7.15.46)
+$ dscacheutil -q host -a name app.elu.test
+name: app.elu.test
+ip_address: 10.7.7.100
+

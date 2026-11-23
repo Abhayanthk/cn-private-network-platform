@@ -1,0 +1,11 @@
+# A demo (Mac 2): Mac 1 dnsmasq stopped. 2026-11-23 19:38:56 IST
+$ dig @10.7.16.231 app.elu.test   (primary)
+;; connection timed out; no servers could be reached
+$ dig app.elu.test   (system resolvers: Mac 1, Mac 4)
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22943
+app.elu.test.		30	IN	A	10.7.7.100
+;; SERVER: 10.7.15.46#53(10.7.15.46)
+$ curl https://app.elu.test:8443/api/status
+HTTP/2 200 
+x-backend: B
+x-edge: mac2-edge

@@ -41,6 +41,19 @@ The configuration files that actually ran are kept in [`config/live/`](../config
 | | `mac1-record-changed.txt` | `app` changed to Mac 3 on both DNS servers | B |
 | [`phase2/C-firewall/`](phase2/C-firewall/) | `mac1-blocked-client.txt` | Direct requests to 3001/3002 time out; through the edge `200` | C |
 | [`phase2/E-cutover/`](phase2/E-cutover/) | `mac1-cutover.txt` | `app` moved to the standby edge; `x-edge` shows Mac 3 | E |
+| [`phase2/A-backup-dns/`](phase2/A-backup-dns/) | `mac2-two-dns-servers` | Mac 2 lists Mac 1 and Mac 4 as resolvers; Mac 4 answers | A |
+| | `mac2-primary-down` | Mac 1 stopped: `dig` answered by Mac 4, `curl` still `200` | A |
+| [`phase2/B-ttl/`](phase2/B-ttl/) | `mac2-ttl-and-cache` | TTL 30 on both servers, macOS cache filled | B |
+| | `mac2-dig-vs-cache` | Right after the change: `dig` new IP, `dscacheutil` old IP | B |
+| | `mac2-after-ttl` | Cache switched to the new IP by itself after 17 s | B |
+| [`phase2/C-firewall/`](phase2/C-firewall/) | `mac2-allowed-client` | Mac 2 (allowed) reaches 3001 and 3002 directly while pf is on | C |
+| [`phase2/D-failover/`](phase2/D-failover/) | `mac2-before` | Both backends up: A, B, A, B | D |
+| | `mac2-a-down` | Backend A stopped: 6 × `200` from B, nginx log `Connection refused` | D |
+| | `mac2-a-back` | A restarted, after 10 s: A, B again | D |
+| [`phase2/E-cutover/`](phase2/E-cutover/) | `mac2-standby-ready` | Standby tested with `curl --resolve` before DNS moved | E |
+| | `mac2-client-y` | Client Y after the change: new IP, `x-edge` = Mac 3 | E |
+
+Each `mac2-*` file has a `.txt` (raw command output) and a `.png` (the same output as an image).
 
 Report: [docs/10-phase2-report.md](../docs/10-phase2-report.md).
 
