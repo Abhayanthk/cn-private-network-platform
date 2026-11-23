@@ -1,0 +1,14 @@
+# Extension F - practice fault, diagnosed from Mac 1 (fault set by Mac 2: nginx not running)
+$ dig app.elu.test | grep -E "SERVER|^app|status"          # rung 1 DNS
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 58444
+app.elu.test.		30	IN	A	10.7.7.100
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+$ ping -c 2 10.7.7.100                                     # rung 2 IP
+2 packets transmitted, 2 packets received, 0.0% packet loss
+$ nc -vz -G 3 app.elu.test 8443                            # rung 3 TCP
+nc: connectx to app.elu.test port 8443 (tcp) failed: Connection refused
+$ curl -sv https://app.elu.test:8443/                      # rung 4 TLS
+* Failed to connect to app.elu.test port 8443 after 1022 ms: Couldn't connect to server
+Ports 8080, 8443, 8444, 443 on 10.7.7.100: all Connection refused
+Diagnosis: DNS ok, IP ok, TCP refused -> nothing listens on Mac 2: nginx is not running
+After the fix: ./scripts/demo.sh check -> DNS, TCP, TLS, HTTP all pass
