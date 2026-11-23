@@ -1,0 +1,8 @@
+# Extension B - record changed on Mac 1 and Mac 4, 2026-11-23 19:44:50
+$ grep host-record dnsmasq.conf
+host-record=app.elu.test,10.7.1.186
+host-record=api.elu.test,10.7.7.100
+$ dig app.elu.test @10.7.16.231 | grep ^app
+app.elu.test.		30	IN	A	10.7.1.186
+$ dig app.elu.test @10.7.15.46 | grep ^app
+app.elu.test.		30	IN	A	10.7.1.186

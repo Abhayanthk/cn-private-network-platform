@@ -1,0 +1,10 @@
+# Extension C - Mac 1 as blocked client, 2026-11-23 19:48:28
+$ curl -m 3 http://10.7.1.186:3001/api/status   (direct to Backend A)
+curl: (28) Connection timed out after 3004 milliseconds
+
+$ curl -m 3 http://10.7.15.46:3002/api/status   (direct to Backend B)
+curl: (28) Connection timed out after 3001 milliseconds
+
+$ curl -s -D - -o /dev/null https://app.elu.test:8443/api/status | grep -iE '^HTTP|x-backend'   (through Mac 2)
+HTTP/2 200 
+x-backend: A
