@@ -60,6 +60,11 @@ The configuration files that actually ran are kept in [`config/live/`](../config
 | [`phase2/E-cutover/`](phase2/E-cutover/) | `mac3-standby-ready` | Standby nginx on Mac 3: `nginx -t`, listening on 8443, `x-edge` = Mac 3, TLS verify ok | E |
 | | `mac3-cutover-live` | Both DNS servers → Mac 3; requests by name served by Mac 3's edge; access log shows client Y (Mac 2) | E |
 | [`phase2/F-troubleshooting/`](phase2/F-troubleshooting/) | `mac1-practice-fault` | Practice fault: ladder stops at TCP, `Connection refused`, nginx not running on Mac 2 | F |
+| | `mac3-fault-backend-a-localhost` | Fault set on Mac 3: Backend A bound to `127.0.0.1` only; local `200`, LAN IP refused | F |
+| | `mac3-fixed-backend-a` | After restart: `*:3001`, LAN IP `200` | F |
+| | `mac3-diag-mac2-upstream-port` | From Mac 3: A up directly, edge serves only B, `x-upstream-addr` shows `:3009` (wrong port in Mac 2's nginx) | F |
+| | `mac3-diag-mac1-wrong-record` | From Mac 3: `dig` returns Mac 4's IP, TCP 8443 refused there; `dig @Mac1` wrong, `dig @Mac4` right | F |
+| | `mac3-diag-mac4-backend-b-down` | From Mac 3: DNS, TCP, TLS pass; edge serves only A; `nc` to 10.7.15.46:3002 refused | F |
 
 Each `mac2-*` and `mac3-*` file has a `.txt` (raw command output) and a `.png` (the same output as an image); the two `mac3-*.jpg` files are direct screenshots.
 

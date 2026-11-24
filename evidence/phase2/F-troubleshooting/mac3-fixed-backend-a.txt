@@ -1,0 +1,6 @@
+~/cn-private-network-platform % lsof -nP -iTCP:3001 -sTCP:LISTEN | awk '{print $1, $9}'
+COMMAND NAME
+Python *:3001
+~/cn-private-network-platform % curl -s -m3 -o /dev/null -w "%{http_code}\n" http://10.7.1.186:3001/api/status
+200
+~/cn-private-network-platform %

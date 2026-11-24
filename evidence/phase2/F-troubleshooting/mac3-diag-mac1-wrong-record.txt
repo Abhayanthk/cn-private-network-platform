@@ -1,0 +1,15 @@
+~/cn-private-network-platform % dig app.elu.test | grep -E "SERVER|^app|status"
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 65403
+app.elu.test.		30	IN	A	10.7.15.46
+;; SERVER: 10.7.16.231#53(10.7.16.231)
+~/cn-private-network-platform % ping -c 1 -t 2 10.7.7.100 >/dev/null && echo "Mac 2 10.7.7.100 ok"
+Mac 2 10.7.7.100 ok
+~/cn-private-network-platform % nc -vz -G 3 app.elu.test 8443
+nc: connectx to app.elu.test port 8443 (tcp) failed: Connection refused
+~/cn-private-network-platform % curl -sv https://app.elu.test:8443/ 2>&1 | grep -E 'Failed|refused'
+* connect to 10.7.15.46 port 8443 from 10.7.1.186 port 65321 failed: Connection refused
+* Failed to connect to app.elu.test port 8443 after 1048 ms: Couldn't connect to server
+~/cn-private-network-platform % dig @10.7.16.231 app.elu.test +short; dig @10.7.15.46 app.elu.test +short
+10.7.15.46
+10.7.7.100
+~/cn-private-network-platform %

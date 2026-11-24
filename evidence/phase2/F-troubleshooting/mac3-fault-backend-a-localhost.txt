@@ -1,0 +1,8 @@
+~/cn-private-network-platform % lsof -nP -iTCP:3001 -sTCP:LISTEN | awk '{print $1, $9}'
+COMMAND NAME
+Python 127.0.0.1:3001
+~/cn-private-network-platform % curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3001/api/status
+200
+~/cn-private-network-platform % curl -s -m3 -o /dev/null -w "%{http_code} %{errormsg}\n" http://10.7.1.186:3001/api/status
+000 Failed to connect to 10.7.1.186 port 3001 after 3 ms: Couldn't connect to server
+~/cn-private-network-platform %
